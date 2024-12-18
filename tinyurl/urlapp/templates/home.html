@@ -9,14 +9,14 @@
 </head>
 <body>
     <div class="navb">
-        <a href="#home">Home</a>
         <button onclick="location.href='{% url 'login' %}'">Login</button>
-    </div> 
-    <div class="contents">
-        <h1> URL Shortner Page</h1>
-        <input type=”url” id=”urlinput” placeholder="Enter url"><br>
-        <button onclick=”shorturl()”>Make It Short</button>
     </div>
-    {% comment %} <script src=”main.js”></script> {% endcomment %}
+    <form method="POST">
+        <div class="contents">
+            <h1> URL Shortner Page</h1>
+            <input type=”url” id=”urlinput” placeholder="Enter url"><br>
+            <button type="submit">Make It Short</button>
+        </div>
+    </form>
 </body>
 </html>
