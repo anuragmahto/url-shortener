@@ -1,7 +1,22 @@
-<html>
- <body>
-    <input type=”url” id=”urlinput”>
-    <button onclick=”shorturl()”>Short The URL</button>
-    <script src=”main.js”></script>
- </body>
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title>Short Your URL</title>
+</head>
+<body>
+    <div class="navb">
+        <a href="#home">Home</a>
+        <button onclick="location.href='{% url 'login' %}'">Login</button>
+    </div> 
+    <div class="contents">
+        <h1> URL Shortner Page</h1>
+        <input type=”url” id=”urlinput” placeholder="Enter url"><br>
+        <button onclick=”shorturl()”>Make It Short</button>
+    </div>
+    {% comment %} <script src=”main.js”></script> {% endcomment %}
+</body>
 </html>

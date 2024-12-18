@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'log.css' %}">
+    <title>Login Page</title>
+</head>
+<body>
+    <div class="navb">
+        {% comment %} <a href="{% url 'h#ome' %}" class="show-btn">Home</a> {% endcomment %}
+    </div>
+    <div class="container">
+        <span class="close-btn">&times;</span>
+        <div class="text">Login</div>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="data">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="data">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="forget">
+                <a href="#">Forgot Password?</a>
+            </div>
+            <div class="btn">
+                <div class="inner"></div>
+                <button type="submit">Login</button>
+            </div>
+            <div class="sign">
+                <span>Not a member? <a href="{% url 'login' %}">Sign up now</a></span>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    const showBtn = document.querySelector('.show-btn');
+    const container = document.querySelector('.container');
+    const closeBtn = document.querySelector('.close-btn');
+
+    showBtn.addEventListener('click', () => {
+        container.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', () => {
+        container.style.display = 'none';
+    });
+</script>
+</html>
