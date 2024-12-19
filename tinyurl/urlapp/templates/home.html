@@ -8,15 +8,37 @@
     <title>Short Your URL</title>
 </head>
 <body>
-    <div class="navb">
-        <button onclick="location.href='{% url 'login' %}'">Login</button>
-    </div>
-    <form method="POST">
-        <div class="contents">
-            <h1> URL Shortner Page</h1>
-            <input type=”url” id=”urlinput” placeholder="Enter url"><br>
-            <button type="submit">Make It Short</button>
+    <div class="contents">
+        <h1> URL Shortner Page</h1>
+        <input type="url" id="urlinput" name="org_url" placeholder="Enter URL" required><br>
+        <button type="button" onclick="shortenUrl()">Make It Short</button>
+        
+        <div id="resultContainer">
+            <p>Your Shortened Url :- </p>
+            <div id="shortUrl"></div>
+            <button class="copy-btn" onclick="copyUrl()">Copy URL</button>
         </div>
-    </form>
+    </div>
+    <script>
+        function shortenUrl(){
+            const input = document.getElementById('urlinput');
+            if(!input.value){
+                alert('Please enter a URL');
+                return;
+            }
+            const dummyShortUrl = 'https://short.url/' + Math.random().toString(36).substr(2, 6);
+            document.getElementById('shortUrl').textContent = dummyShortUrl;
+            document.getElementById('resultContainer').style.display = 'block';
+        }
+        function copyUrl(){
+            const shortUrl = document.getElementById('shortUrl').textContent;
+            navigator.clipboard.writeText(shortUrl).then(() => {
+                alert('URL copied to clipboard');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+
 </body>
 </html>
