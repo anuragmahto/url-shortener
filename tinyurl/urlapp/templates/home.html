@@ -12,14 +12,35 @@
         <h1> URL Shortner Page</h1>
         <form method="POST">
             {% csrf_token %}
-            <input type="text" name="input_data" placeholder="Enter some data" required>
-            <button type="submit">Submit</button>
+            <input type="text" name="input_data" placeholder="Enter some data" required><br><br>
+            <button type="submit">Submit</button><br><br>
         </form>
     
         {% if shorturl %}
             <h2>Your Shortened Url :-</h2>
-            <a href="{{ orgurl }}">{{ shorturl }}</a>
+            <a href="{{ orgurl }}">{{ shorturl }}</a><br><br>
         {% endif %}
+
+        {% if mostVisited %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Domain Name</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for domain in mostVisited %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ domain.domain_name }}</td>
+                    <td>{{ domain.count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+            {% endif %}
     </div>
 </body>
 </html>

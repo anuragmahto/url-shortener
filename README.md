@@ -14,7 +14,7 @@ TinyURL is a Django-based web application that provides URL shortening services.
 ## Features
 - Generate shortened URLs from long URLs.
 - Redirect shortened URLs to their original destination.
-- TODO: Write a metrics API that returns top 3 domain names that have been shortened the most of the times.
+- Display top 3 domain names that have been shortened the most of the times.
 
 ---
 
@@ -58,7 +58,7 @@ TinyURL is a Django-based web application that provides URL shortening services.
 
 5. Apply migrations:
    ```
-   python3 manage.py migrate
+   python3 manage.py migrated
    ```
 
 7. Run the application:

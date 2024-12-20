@@ -10,3 +10,11 @@ class URLstore(models.Model):
 
     def __str__(self):
         return self.original_url
+    
+
+class DomainCounter(models.Model):
+    domain_name = models.CharField(max_length=50, unique=True)
+    count = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.domain_name} : {self.count}"
