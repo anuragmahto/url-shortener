@@ -5,22 +5,34 @@ from django.shortcuts import render, redirect # type: ignore
 from django.template import loader # type: ignore
 from .models import URLstore
 
-def shorturl(org_url):
-    base_url = "http://shurl/"
-    if not org_url.startswith(('http://','https://')):
-        org_url = "https://" + org_url
-    while True:
+def shorturl(request):
+    context = {}
+    if request.method == 'POST':
+        print(type(request.POST))
+        org_url = request.POST.get('input_data', '')
+        base_url = "http://shurl/"
+        existing_url = URLstore.objects.filter(original_url=org_url).first()
+
+        existing_url = URLstore.objects.filter(original_url=org_url).first()
+        if existing_url:
+            context['shorturl'] = existing_url.short_url
+            context['orgurl'] = existing_url.original_url
+            return render(request, 'home.html', context)
+
         hash_value = hashlib.md5(org_url.encode()).hexdigest()[:6]
         short_url = base_url + hash_value
-        if not URLstore.objects.filter(short_url=short_url).exists():
-            break
-        org_url += '1'
-
-    url_obj = URLstore.objects.create(
-        short_url = short_url,
-        original_url = org_url
-    )
-    return short_url
+        while URLstore.objects.filter(short_url=short_url).exists():
+            hash_value = hashlib.md5((org_url + str(hash_value)).encode()).hexdigest()[:6]
+            short_url = base_url + hash_value
+   
+        url_obj = URLstore(
+            short_url = short_url,
+            original_url = org_url
+        )
+        url_obj.save()
+        context['shorturl'] = short_url
+        context['orgurl'] = org_url
+    return render(request, 'home.html', context)
 
 def extended_url(short_url):
     try:
@@ -36,11 +48,16 @@ def home(request):
         org_url = request.POST.get('org_url')
         if org_url:
             try:
-                short_url = shorturl(org_url)
+                existing_url = URLstore.objects.filter(original_url=org_url).first()
+                if existing_url:
+                    short_url = existing_url.short_url
+                else:
+                    short_url = shorturl(org_url)
+                
                 return render(request, 'home.html', {
                     'short_url': short_url,
                     'org_url': org_url
-                })
+                })  
             except Exception as e:
                 return render(request, 'home.html', {
                     'error':f'Error creating short URL :- {str(e)}'
