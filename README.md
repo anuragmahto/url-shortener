@@ -37,7 +37,7 @@ TinyURL is a Django-based web application that provides URL shortening services.
 ### Environment Setup
 1. Clone the repository:
    ```
-   git clone https://github.com/anuragmahto/infracloud-assignment
+   git clone git@github.com:anuragmahto/infracloud-assignment.git
    cd tinyurl
    ```
 
