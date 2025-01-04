@@ -1,7 +1,6 @@
-# infracloud-assignment
 
 ## Project Name
-tinyurl
+url-shortner
 
 ## App Name
 urlapp
